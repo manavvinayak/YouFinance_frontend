@@ -1,6 +1,10 @@
 "use client"
 
+import { useAuth } from "../context/AuthContext"
+import { formatCurrency } from "../utils/currency"
+
 const AccountCard = ({ account, onEdit, onDelete }) => {
+  const { userCurrency } = useAuth()
   const getIcon = (type) => {
     switch (type) {
       case "Checking":
@@ -33,7 +37,9 @@ const AccountCard = ({ account, onEdit, onDelete }) => {
       </div>
       <h3 className="text-xl font-semibold mb-2">{account.name}</h3>
       <p className="text-gray-600 text-sm mb-4">{account.type}</p>
-      <div className="text-2xl font-bold text-primary">${account.currentBalance.toFixed(2)}</div>
+      <div className="text-2xl font-bold text-primary">
+        {formatCurrency(account.currentBalance, userCurrency)}
+      </div>
     </div>
   )
 }

@@ -1,9 +1,12 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useAuth } from "../context/AuthContext"
+import { formatCurrency } from "../utils/currency"
 import { getUserProfile, updateUserProfile, updateUserBudgets, updateUserAlerts } from "../services/api"
 
 const ProfilePage = () => {
+  const { updateUserCurrency, userCurrency } = useAuth()
   const [userProfile, setUserProfile] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
@@ -47,6 +50,7 @@ const ProfilePage = () => {
     try {
       const updatedProfile = await updateUserProfile({ name, email, currency })
       setUserProfile(updatedProfile)
+      updateUserCurrency(currency) // Update currency in context
       setSuccessMessage("Profile updated successfully!")
     } catch (err) {
       setError(err.message || "Failed to update profile.")
@@ -145,7 +149,10 @@ const ProfilePage = () => {
               <option value="USD">USD ($)</option>
               <option value="EUR">EUR (€)</option>
               <option value="GBP">GBP (£)</option>
-              {/* Add more currencies as needed */}
+              <option value="INR">INR (₹)</option>
+              <option value="JPY">JPY (¥)</option>
+              <option value="CAD">CAD (C$)</option>
+              <option value="AUD">AUD (A$)</option>
             </select>
             <label htmlFor="currency">Currency</label>
           </div>
@@ -163,7 +170,7 @@ const ProfilePage = () => {
             budgets.map((budget, index) => (
               <div key={index} className="flex items-center justify-between mb-2 p-3 bg-gray-50 rounded-md">
                 <div>
-                  <span className="font-medium">{budget.category}:</span> ${budget.amount.toFixed(2)}
+                  <span className="font-medium">{budget.category}:</span> {formatCurrency(budget.amount, userCurrency)}
                   {/* Progress bar placeholder */}
                   <div className="w-full bg-gray-200 rounded-full h-2.5 mt-1">
                     <div
@@ -171,7 +178,7 @@ const ProfilePage = () => {
                       style={{ width: `${Math.min(100, (budget.spent / budget.amount) * 100)}%` }}
                     ></div>
                   </div>
-                  <span className="text-sm text-gray-600">Spent: ${budget.spent.toFixed(2)}</span>
+                  <span className="text-sm text-gray-600">Spent: {formatCurrency(budget.spent, userCurrency)}</span>
                 </div>
                 <button
                   onClick={() => handleDeleteBudget(budget.category)}

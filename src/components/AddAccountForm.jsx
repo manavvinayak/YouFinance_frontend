@@ -3,9 +3,9 @@
 import { useState } from "react"
 
 const AddAccountForm = ({ onSubmit, initialData = {}, onCancel }) => {
-  const [name, setName] = useState(initialData.name || "")
-  const [type, setType] = useState(initialData.type || "Checking")
-  const [initialBalance, setInitialBalance] = useState(initialData.initialBalance || "")
+  const [name, setName] = useState(initialData?.name || "")
+  const [type, setType] = useState(initialData?.type || "Checking")
+  const [initialBalance, setInitialBalance] = useState(initialData?.initialBalance || "")
   const [error, setError] = useState("")
 
   const handleSubmit = (e) => {
@@ -25,7 +25,7 @@ const AddAccountForm = ({ onSubmit, initialData = {}, onCancel }) => {
   return (
     <form onSubmit={handleSubmit} className="card p-6">
       <h3 className="text-2xl font-semibold mb-6 text-primary">
-        {initialData._id ? "Edit Account" : "Add New Account"}
+        {initialData?._id ? "Edit Account" : "Add New Account"}
       </h3>
       {error && <div className="bg-danger text-white p-3 rounded-md mb-4">{error}</div>}
 
@@ -64,7 +64,7 @@ const AddAccountForm = ({ onSubmit, initialData = {}, onCancel }) => {
           Cancel
         </button>
         <button type="submit" className="btn-primary">
-          {initialData._id ? "Update Account" : "Add Account"}
+          {initialData?._id ? "Update Account" : "Add Account"}
         </button>
       </div>
     </form>

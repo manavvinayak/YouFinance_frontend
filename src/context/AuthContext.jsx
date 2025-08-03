@@ -8,6 +8,7 @@ const AuthContext = createContext(null)
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [userCurrency, setUserCurrency] = useState('USD') // Default currency
 
   useEffect(() => {
     const verifyAuth = async () => {
@@ -15,6 +16,7 @@ export const AuthProvider = ({ children }) => {
         const data = await checkAuthStatus()
         if (data.user) {
           setUser(data.user)
+          setUserCurrency(data.user.currency || 'USD') // Set user's currency
         }
       } catch (error) {
         console.error("Auth check failed:", error)
@@ -30,6 +32,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const data = await loginUser(email, password)
       setUser(data)
+      setUserCurrency(data.currency || 'USD') // Set user's currency on login
       return true
     } catch (error) {
       console.error("Login failed:", error)
@@ -41,6 +44,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const data = await registerUser(name, email, password)
       setUser(data)
+      setUserCurrency(data.currency || 'USD') // Set user's currency on register
       return true
     } catch (error) {
       console.error("Registration failed:", error)
@@ -52,12 +56,30 @@ export const AuthProvider = ({ children }) => {
     try {
       await logoutUser()
       setUser(null)
+      setUserCurrency('USD') // Reset to default currency
     } catch (error) {
       console.error("Logout failed:", error)
     }
   }
 
-  return <AuthContext.Provider value={{ user, loading, login, register, logout }}>{children}</AuthContext.Provider>
+  // Function to update user currency
+  const updateUserCurrency = (newCurrency) => {
+    setUserCurrency(newCurrency)
+    // Also update the user object if it exists
+    if (user) {
+      setUser(prev => ({ ...prev, currency: newCurrency }))
+    }
+  }
+
+  return <AuthContext.Provider value={{ 
+    user, 
+    loading, 
+    userCurrency, 
+    login, 
+    register, 
+    logout, 
+    updateUserCurrency 
+  }}>{children}</AuthContext.Provider>
 }
 
 export const useAuth = () => {

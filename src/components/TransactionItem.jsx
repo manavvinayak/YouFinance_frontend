@@ -1,6 +1,10 @@
 "use client"
 
+import { useAuth } from "../context/AuthContext"
+import { formatCurrency } from "../utils/currency"
+
 const TransactionItem = ({ transaction, onEdit, onDelete }) => {
+  const { userCurrency } = useAuth()
   const isExpense = transaction.type === "Expense"
   const isIncome = transaction.type === "Income"
 
@@ -14,7 +18,7 @@ const TransactionItem = ({ transaction, onEdit, onDelete }) => {
       </div>
       <div className="flex items-center space-x-4">
         <span className={`font-bold text-lg ${isExpense ? "text-danger" : isIncome ? "text-success" : "text-text"}`}>
-          {isExpense ? "-" : ""}${transaction.amount.toFixed(2)}
+          {isExpense ? "-" : ""}{formatCurrency(transaction.amount, userCurrency)}
         </span>
         <div className="flex space-x-2">
           <button onClick={() => onEdit(transaction)} className="text-primary hover:text-secondary text-sm">
