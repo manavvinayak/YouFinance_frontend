@@ -29,14 +29,17 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   const login = async (email, password) => {
+    setLoading(true) // Set loading state
     try {
       const data = await loginUser(email, password)
-      setUser(data)
-      setUserCurrency(data.currency || 'USD') // Set user's currency on login
+      setUser(data.user || data) // Handle different response formats
+      setUserCurrency((data.user || data).currency || 'USD')
       return true
     } catch (error) {
       console.error("Login failed:", error)
       throw error
+    } finally {
+      setLoading(false) // Always clear loading state
     }
   }
 

@@ -2,11 +2,16 @@ const API_BASE_URL = "http://localhost:5000/api" // Ensure this matches your bac
 
 // Helper to handle fetch responses
 const handleResponse = async (response) => {
+  const data = await response.json()
+  
   if (!response.ok) {
-    const errorData = await response.json()
-    throw new Error(errorData.message || "Something went wrong")
+    // Better error handling
+    const errorMessage = data.message || data.error || `HTTP ${response.status}: ${response.statusText}`
+    console.error('API Error:', errorMessage, data)
+    throw new Error(errorMessage)
   }
-  return response.json()
+  
+  return data
 }
 
 // Auth API Calls
@@ -23,15 +28,23 @@ export const registerUser = async (name, email, password) => {
 }
 
 export const loginUser = async (email, password) => {
-  const response = await fetch(`${API_BASE_URL}/auth/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    credentials: "include",
-    body: JSON.stringify({ email, password }),
-  })
-  return handleResponse(response)
+  try {
+    const response = await fetch(`${API_BASE_URL}/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ email, password }),
+    })
+    return handleResponse(response)
+  } catch (error) {
+    // Handle network errors
+    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+      throw new Error('Unable to connect to server. Please check your internet connection.')
+    }
+    throw error
+  }
 }
 
 export const logoutUser = async () => {

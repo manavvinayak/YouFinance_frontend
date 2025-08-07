@@ -7,16 +7,29 @@ import { useAuth } from "../context/AuthContext"
 
 const LoginPage = () => {
   const [error, setError] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
   const { login } = useAuth()
   const navigate = useNavigate()
 
   const handleLogin = async (email, password) => {
     try {
       setError("")
-      await login(email, password)
-      navigate("/dashboard")
+      setIsLoading(true)
+      
+      // Wait for login to complete
+      const success = await login(email, password)
+      
+      if (success) {
+        // Small delay to ensure state updates
+        setTimeout(() => {
+          navigate("/dashboard")
+        }, 100)
+      }
     } catch (err) {
+      console.error("Login error:", err)
       setError(err.message || "Login failed. Please check your credentials.")
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -36,7 +49,12 @@ const LoginPage = () => {
 
         {/* Auth Form */}
         <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-          <AuthForm type="login" onSubmit={handleLogin} errorMessage={error} />
+          <AuthForm 
+            type="login" 
+            onSubmit={handleLogin} 
+            errorMessage={error} 
+            isLoading={isLoading}
+          />
         </div>
 
         {/* Footer */}

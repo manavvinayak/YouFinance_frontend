@@ -75,11 +75,11 @@ const LandingPage = () => {
             {/* Modern Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
               <div className="backdrop-blur-lg bg-white/10 rounded-2xl p-6 border border-white/20">
-                <div className="text-3xl font-bold text-cyan-400">10K+</div>
+                <div className="text-3xl font-bold text-cyan-400">10+</div>
                 <div className="text-gray-300">Happy Users</div>
               </div>
               <div className="backdrop-blur-lg bg-white/10 rounded-2xl p-6 border border-white/20">
-                <div className="text-3xl font-bold text-purple-400">₹50M+</div>
+                <div className="text-3xl font-bold text-purple-400">₹50+</div>
                 <div className="text-gray-300">Money Managed</div>
               </div>
               <div className="backdrop-blur-lg bg-white/10 rounded-2xl p-6 border border-white/20">
