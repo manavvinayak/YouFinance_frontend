@@ -32,8 +32,25 @@ export const AuthProvider = ({ children }) => {
     setLoading(true) // Set loading state
     try {
       const data = await loginUser(email, password)
-      setUser(data.user || data) // Handle different response formats
-      setUserCurrency((data.user || data).currency || 'USD')
+      
+      // Ensure we have a valid user object before updating state
+      if (!data || (typeof data === 'object' && Object.keys(data).length === 0)) {
+        throw new Error("Invalid response from server")
+      }
+      
+      // Normalize user data structure
+      const userData = data.user || data
+      
+      // Update state
+      setUser(userData)
+      
+      // Set currency if available
+      if (userData && userData.currency) {
+        setUserCurrency(userData.currency)
+      } else {
+        setUserCurrency('USD')
+      }
+      
       return true
     } catch (error) {
       console.error("Login failed:", error)

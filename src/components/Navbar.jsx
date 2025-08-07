@@ -1,11 +1,12 @@
 "use client"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate, useLocation } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
 import { useState } from "react"
 
 const Navbar = () => {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const toggleMobileMenu = () => {
@@ -17,6 +18,10 @@ const Navbar = () => {
     navigate("/login")
     setIsMobileMenuOpen(false) 
   }
+  
+  const isActive = (path) => {
+    return location.pathname === path ? "bg-red-500" : ""
+  }
 
   return (
     <nav className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg">
@@ -26,29 +31,29 @@ const Navbar = () => {
             💰 The YouFinance
           </Link>
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-white hover:text-indigo-200 transition-colors font-medium">
+            <Link to="/" className={`${isActive("/")} text-white hover:text-indigo-200 transition-colors font-medium px-4 py-2 rounded-lg`}>
               Home
             </Link>
             {user ? (
               <>
-                <Link to="/dashboard" className="text-white hover:text-indigo-200 transition-colors font-medium">
+                <Link to="/dashboard" className={`${isActive("/dashboard")} text-white hover:text-indigo-200 transition-colors font-medium px-4 py-2 rounded-lg`}>
                   Dashboard
                 </Link>
-                <Link to="/accounts" className="text-white hover:text-indigo-200 transition-colors font-medium">
+                <Link to="/accounts" className={`${isActive("/accounts")} text-white hover:text-indigo-200 transition-colors font-medium px-4 py-2 rounded-lg`}>
                   Accounts
                 </Link>
-                <Link to="/transactions" className="text-white hover:text-indigo-200 transition-colors font-medium">
+                <Link to="/transactions" className={`${isActive("/transactions")} text-white hover:text-indigo-200 transition-colors font-medium px-4 py-2 rounded-lg`}>
                   Transactions
                 </Link>
-                <Link to="/reports" className="text-white hover:text-indigo-200 transition-colors font-medium">
+                <Link to="/reports" className={`${isActive("/reports")} text-white hover:text-indigo-200 transition-colors font-medium px-4 py-2 rounded-lg`}>
                   Reports
                 </Link>
-                <Link to="/profile" className="text-white hover:text-indigo-200 transition-colors font-medium">
+                <Link to="/profile" className={`${isActive("/profile")} text-white hover:text-indigo-200 transition-colors font-medium px-4 py-2 rounded-lg`}>
                   Profile
                 </Link>
                 <button 
                   onClick={handleLogout} 
-                  className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+                  className=" text-white px-4 py-2 rounded-lg font-medium transition-colors"
                 >
                   Logout
                 </button>
@@ -57,19 +62,19 @@ const Navbar = () => {
               <>
                 <Link 
                   to="/login" 
-                  className="text-white hover:text-indigo-200 transition-colors font-medium"
+                  className={`${isActive("/login")} text-white hover:text-indigo-200 transition-colors font-medium px-4 py-2 rounded-lg`}
                 >
                   Login
                 </Link>
                 <Link 
                   to="/signup" 
-                  className="bg-white text-indigo-600 hover:bg-indigo-50 px-4 py-2 rounded-lg font-medium transition-colors"
+                  className={`${isActive("/signup") ? "bg-red-500 text-white" : "bg-white text-indigo-600"} hover:bg-indigo-50 hover:text-indigo-600 px-4 py-2 rounded-lg font-medium transition-colors`}
                 >
                   Sign Up
                 </Link>
               </>
             )}
-            <Link to="/about" className="text-white hover:text-indigo-200 transition-colors font-medium">
+            <Link to="/about" className={`${isActive("/about")} text-white hover:text-indigo-200 transition-colors font-medium px-4 py-2 rounded-lg`}>
               About
             </Link>
           </div>
@@ -103,7 +108,7 @@ const Navbar = () => {
             <div className="flex flex-col space-y-3 pt-4">
               <Link 
                 to="/" 
-                className="text-white hover:text-indigo-200 transition-colors font-medium px-2 py-1"
+                className={`${isActive("/")} text-white hover:text-indigo-200 transition-colors font-medium px-2 py-1 rounded-lg`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Home
@@ -112,35 +117,35 @@ const Navbar = () => {
                 <>
                   <Link 
                     to="/dashboard" 
-                    className="text-white hover:text-indigo-200 transition-colors font-medium px-2 py-1"
+                    className={`${isActive("/dashboard")} text-white hover:text-indigo-200 transition-colors font-medium px-2 py-1 rounded-lg`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Dashboard
                   </Link>
                   <Link 
                     to="/accounts" 
-                    className="text-white hover:text-indigo-200 transition-colors font-medium px-2 py-1"
+                    className={`${isActive("/accounts")} text-white hover:text-indigo-200 transition-colors font-medium px-2 py-1 rounded-lg`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Accounts
                   </Link>
                   <Link 
                     to="/transactions" 
-                    className="text-white hover:text-indigo-200 transition-colors font-medium px-2 py-1"
+                    className={`${isActive("/transactions")} text-white hover:text-indigo-200 transition-colors font-medium px-2 py-1 rounded-lg`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Transactions
                   </Link>
                   <Link 
                     to="/reports" 
-                    className="text-white hover:text-indigo-200 transition-colors font-medium px-2 py-1"
+                    className={`${isActive("/reports")} text-white hover:text-indigo-200 transition-colors font-medium px-2 py-1 rounded-lg`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Reports
                   </Link>
                   <Link 
                     to="/profile" 
-                    className="text-white hover:text-indigo-200 transition-colors font-medium px-2 py-1"
+                    className={`${isActive("/profile")} text-white hover:text-indigo-200 transition-colors font-medium px-2 py-1 rounded-lg`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Profile
@@ -156,14 +161,14 @@ const Navbar = () => {
                 <>
                   <Link 
                     to="/login" 
-                    className="text-white hover:text-indigo-200 transition-colors font-medium px-2 py-1"
+                    className={`${isActive("/login")} text-white hover:text-indigo-200 transition-colors font-medium px-2 py-1 rounded-lg`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Login
                   </Link>
                   <Link 
                     to="/signup" 
-                    className="bg-white text-indigo-600 hover:bg-indigo-50 px-4 py-2 rounded-lg font-medium transition-colors text-center"
+                    className={`${isActive("/signup") ? "bg-red-500 text-white" : "bg-white text-indigo-600"} hover:bg-indigo-50 hover:text-indigo-600 px-4 py-2 rounded-lg font-medium transition-colors text-center`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Sign Up
@@ -172,7 +177,7 @@ const Navbar = () => {
               )}
               <Link 
                 to="/about" 
-                className="text-white hover:text-indigo-200 transition-colors font-medium px-2 py-1"
+                className={`${isActive("/about")} text-white hover:text-indigo-200 transition-colors font-medium px-2 py-1 rounded-lg`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 About

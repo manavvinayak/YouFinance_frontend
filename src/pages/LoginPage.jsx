@@ -20,14 +20,19 @@ const LoginPage = () => {
       const success = await login(email, password)
       
       if (success) {
-        // Small delay to ensure state updates
+        // Longer delay to ensure state updates properly
+        // This helps avoid the race condition where the page navigates before auth state is fully updated
         setTimeout(() => {
-          navigate("/dashboard")
-        }, 100)
+          navigate("/dashboard", { replace: true }) // Use replace to prevent back button issues
+        }, 500)
       }
     } catch (err) {
       console.error("Login error:", err)
-      setError(err.message || "Login failed. Please check your credentials.")
+      setError(
+        err.message === "Failed to fetch" 
+          ? "Unable to connect to server. Please check your connection." 
+          : err.message || "Invalid email or password. Please try again."
+      )
     } finally {
       setIsLoading(false)
     }

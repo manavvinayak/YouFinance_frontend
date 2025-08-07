@@ -2,7 +2,19 @@ const API_BASE_URL = "http://localhost:5000/api" // Ensure this matches your bac
 
 // Helper to handle fetch responses
 const handleResponse = async (response) => {
-  const data = await response.json()
+  // First check if response is valid
+  if (!response) {
+    throw new Error("No response received from server")
+  }
+  
+  let data
+  try {
+    // Try to parse JSON
+    data = await response.json()
+  } catch (e) {
+    console.error("Failed to parse JSON response:", e)
+    throw new Error(`Invalid response format: ${e.message}`)
+  }
   
   if (!response.ok) {
     // Better error handling
@@ -29,6 +41,10 @@ export const registerUser = async (name, email, password) => {
 
 export const loginUser = async (email, password) => {
   try {
+    // Add timeout to prevent hanging requests
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
+    
     const response = await fetch(`${API_BASE_URL}/auth/login`, {
       method: "POST",
       headers: {
@@ -36,11 +52,30 @@ export const loginUser = async (email, password) => {
       },
       credentials: "include",
       body: JSON.stringify({ email, password }),
+      signal: controller.signal
     })
-    return handleResponse(response)
+    
+    clearTimeout(timeoutId) // Clear the timeout
+    
+    // Process the response
+    const data = await handleResponse(response)
+    
+    // Validate the response contains a user object
+    if (!data || typeof data !== 'object') {
+      throw new Error('Invalid response format')
+    }
+    
+    // Normalize response structure
+    if (!data.user && !data._id) {
+      throw new Error('Invalid credentials')
+    }
+    
+    return data
   } catch (error) {
-    // Handle network errors
-    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+    // Handle different error types
+    if (error.name === 'AbortError') {
+      throw new Error('Request timed out. Please try again.')
+    } else if (error.name === 'TypeError' && error.message.includes('fetch')) {
       throw new Error('Unable to connect to server. Please check your internet connection.')
     }
     throw error
