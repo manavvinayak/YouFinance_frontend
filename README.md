@@ -13,7 +13,7 @@ YouFinance is a lightweight Personal Finance web app that helps users manage acc
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/f75f400f-1f1b-4a78-8805-0144de9ee26a"  /> &nbsp;&nbsp; 
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/bd1e8dd8-be07-4eaa-8b1d-4172008ecf75"  /> &nbsp;&nbsp; 
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/7ee9d3b0-84b0-41ca-ac14-e32cec903684" /> &nbsp;&nbsp; 
 
 
 ## Quickstart (Development)
