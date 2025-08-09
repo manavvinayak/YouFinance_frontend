@@ -1,7 +1,7 @@
 # YouFinance
 
-YouFinance is a lightweight Personal Finance web app that helps users manage accounts, log transactions, track budgets, and view spending reports. Built as a clean, responsive MERN application with an attractive Tailwind-driven UI.
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/e91e1af9-99da-4df0-bbef-2dfa771e55ab" hspace="20" />
+YouFinance is a lightweight Personal Finance web app that helps users manage accounts, log transactions, track budgets, and view spending reports. Built as a clean, responsive MERN application with an attractive Tailwind-driven UI. &nbsp;
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/e91e1af9-99da-4df0-bbef-2dfa771e55ab"  /> &nbsp;&nbsp; 
 
 
 ## Key Features
@@ -11,9 +11,9 @@ YouFinance is a lightweight Personal Finance web app that helps users manage acc
 - Filter & export transactions; monthly reports & category breakdowns
 - Profile & budget settings with in-app alerts
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/f75f400f-1f1b-4a78-8805-0144de9ee26a" hspace="20" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/f75f400f-1f1b-4a78-8805-0144de9ee26a"  /> &nbsp;&nbsp; 
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/bd1e8dd8-be07-4eaa-8b1d-4172008ecf75" hspace="20" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/bd1e8dd8-be07-4eaa-8b1d-4172008ecf75"  /> &nbsp;&nbsp; 
 
 
 ## Quickstart (Development)
