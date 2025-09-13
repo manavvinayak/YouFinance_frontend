@@ -4,7 +4,7 @@ const AboutPage = () => {
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">About FinanceApp</h1>
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">About YouFinance</h1>
           <p className="text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed">
             Transforming the way you think about money, one smart decision at a time
           </p>
@@ -46,7 +46,7 @@ const AboutPage = () => {
                 <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Mission</h2>
                 <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
                   <p>
-                    At FinanceApp, we believe financial wellness should be accessible to everyone. We're building the future of personal finance management with cutting-edge technology and intuitive design.
+                    At YouFinance, we believe financial wellness should be accessible to everyone. We're building the future of personal finance management with cutting-edge technology and intuitive design.
                   </p>
                   <p>
                     Our platform empowers you to make informed financial decisions, track your progress in real-time, and achieve your goals faster than ever before. From budgeting to investment tracking, we've got you covered.
