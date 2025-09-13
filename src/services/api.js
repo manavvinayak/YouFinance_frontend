@@ -247,12 +247,24 @@ export const updateUserBudgets = async (budgets) => {
   return handleResponse(response)
 }
 
+// export const updateUserAlerts = async (alertThresholds) => {
+//   const response = await fetch(`${API_BASE_URL}/users/alerts`, {
+//     method: "PUT",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({ alertThresholds }),
+//   })
+//   return handleResponse(response)
+// }
+
 export const updateUserAlerts = async (alertThresholds) => {
   const response = await fetch(`${API_BASE_URL}/users/alerts`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: "include", // Add this line
     body: JSON.stringify({ alertThresholds }),
   })
   return handleResponse(response)
