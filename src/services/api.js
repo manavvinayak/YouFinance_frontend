@@ -1,4 +1,4 @@
-const API_BASE_URL = "you-finance-backend.vercel.app/api" // Ensure this matches your backend port
+const API_BASE_URL = "https://you-finance-backend.vercel.app/api" // Ensure this matches your backend port
 
 // Helper to handle fetch responses
 const handleResponse = async (response) => {
